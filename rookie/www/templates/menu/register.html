@@ -1,0 +1,30 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">회원가입</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="closeRegister()">닫기</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <form ng-submit="doRegister()">
+            <div class="list">
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">이메일</span>
+                <input type="email" placeholder="abc@rookiekorea.com" ng-model="registerData.userID">
+              </label>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">비밀번호</span>
+                <input type="password" placeholder="비밀번호" ng-model="registerData.userPW">
+              </label>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">비밀번호 확인</span>
+                <input type="password" placeholder="비밀번호 확인" ng-model="registerData.userPWC">
+              </label>
+              <label class="item">
+                <button class="button button-block button-{{regiValidCheck}}" type="submit">회원가입</button>
+              </label>
+            </div>
+        </form>
+    </ion-content>
+</ion-modal-view>
+

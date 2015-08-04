@@ -1,0 +1,67 @@
+<ion-view title="{{curSports}}">
+
+	<ion-pane>
+
+		<ion-tabs class="tabs-royal tabs-icon-left">
+
+			<!-- Competitions -->
+			<ion-tab title="대회" icon-on="ion-ios-game-controller-b" icon-off="ion-ios-game-controller-b-outline" ng-click="competitions()">
+				<ion-header-bar></ion-header-bar>
+				<ion-content has-bouncing="false">
+					<ion-list ng-repeat="item in competitionItems">
+						<ion-item>
+						    <a class="item item-thumbnail-left" href="#/app/main/{{curSports}}/competitions/{{item._id}}">
+								<img ng-src="http://52.69.2.200/uploads/{{item.eventImg}}">
+								<h2>{{item.eventTitle}}</h2>
+								<p>Nine Inch Nails</p>
+						    </a>
+						</ion-item>
+					</ion-list>
+				</ion-content>
+			</ion-tab>
+
+			<!-- Courts -->
+			<ion-tab title="코트장" icon-on="ion-ios-paperplane" icon-off="ion-ios-paperplane-outline" ng-click="courts()">
+				<ion-header-bar></ion-header-bar>
+				<ion-content has-bouncing="false">
+					<ion-list ng-repeat="item in courtItems">
+						<ion-item>
+						    <a class="item item-thumbnail-left" href="#/app/main/{{curSports}}/courts/{{item._id}}">
+								<img ng-src="http://52.69.2.200/uploads/{{item.courtImg}}">
+								<h2>{{item.courtTitle}}</h2>
+								<p>Nine Inch Nails</p>
+						    </a>
+						</ion-item>
+					</ion-list>
+				</ion-content>
+			</ion-tab>
+
+			<!-- Clubs -->
+			<ion-tab title="동호회" icon-on="ion-ios-people" icon-off="ion-ios-people-outline" ng-click="clubs()">
+				<ion-header-bar></ion-header-bar>
+				<ion-content has-bouncing="false">
+					<ion-list ng-repeat="item in clubItems">
+						<ion-item>
+						    <a class="item item-thumbnail-left" href="#/app/main/{{curSports}}/clubs/{{item._id}}">
+								<img ng-src="http://52.69.2.200/uploads/{{item.clubImg}}">
+								<h2>{{item.clubTitle}}</h2>
+								<p>Nine Inch Nails</p>
+						    </a>
+						</ion-item>
+					</ion-list>
+				</ion-content>
+			</ion-tab>
+
+		</ion-tabs>
+
+	</ion-pane>
+
+</ion-view>
+
+
+
+
+
+
+
+

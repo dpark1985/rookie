@@ -1,0 +1,49 @@
+<ion-side-menus enable-menu-with-back-views="false">
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-calm">
+            <ion-nav-back-button>
+            </ion-nav-back-button>
+            <ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+                </button>
+            </ion-nav-buttons>
+            <ion-nav-title>
+                <img src="img/logo/topLogo.svg">
+            </ion-nav-title>
+        </ion-nav-bar>
+        <ion-nav-view name="menuContent">
+        </ion-nav-view>
+    </ion-side-menu-content>
+
+    <ion-side-menu side="left">
+        <ion-content id="menuContent">
+            <ion-list>
+                <div class="ads">
+
+                </div>
+                <ion-item menu-close ng-click="login()">
+                  로그인
+                </ion-item>
+                <ion-item menu-close >
+                  이벤트 및 공지사항
+                </ion-item>
+                <ion-item menu-close ng-click="adsQuery()">
+                  광고문의
+                </ion-item>
+                <ion-item menu-close ng-click="terms()">
+                  약관보기
+                </ion-item>
+                <ion-item menu-close >
+                  고객센터
+                </ion-item>
+                <ion-item menu-close >
+                  Aitch3 정보
+                </ion-item>
+                <div class="crSection">
+                  <span class="badge badge-positive">Version 1.0.0</span>
+                  <p class="crText">Copyright Aitch3 in Wonju, All Rights Reserved.<p>
+                </div>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>

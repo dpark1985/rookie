@@ -1,0 +1,43 @@
+<ion-view>
+
+
+	<ion-content id="detailsView" has-bouncing="false">
+		<div id="subSection">
+			<img ng-src={{imageURL}}>
+
+			<h1><strong>{{mainTitle}}</strong></h1>
+
+		</div>
+
+		<div id="detailMenu">
+			<div class="tabs-striped tabs-top tabs-background-royal tabs-color-light">
+				<div class="tabs">
+					<a class="tab-item {{contentActive}} icon-left ion-cube" href="#" ng-click="contentClick()">
+						내용
+					</a>
+					<a class="tab-item {{basicInfoActive}} icon-left ion-information-circled" href="#" ng-click="infoClick()">
+						기본정보
+					</a>
+					<a class="tab-item {{imageActive}} icon-left ion-images" href="#" ng-click="imgClick()">
+						사진
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="mainSection" ng-include="activeInclude" >
+
+		</div>
+
+
+	</ion-content>
+
+</ion-view>
+
+
+
+
+
+
+
+

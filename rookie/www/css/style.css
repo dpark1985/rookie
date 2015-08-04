@@ -1,0 +1,136 @@
+/* Menu Style */
+
+.ads {
+	height: 200px;
+	width: 100%;
+	background-color: red;
+}
+
+#menuContent > div > ion-list > div > ion-item.item {
+	text-align: center;
+}
+
+.crSection{
+	height: 50px;
+	padding-top:10px;
+}
+
+.crSection > .badge {
+	margin-left: 87.2265px;
+}
+
+.crSection > .crText {
+	text-align: center;
+	font-size: 0.8em;
+}
+
+ion-content > div.scroll {
+	transform: ;
+}
+
+/* Main Style */
+
+.sportsList > div {
+	text-align: center;
+}
+
+.bringToTop {
+	top: 0;
+}
+
+.footerAds {
+	border-top: 0;
+	height: 150px;
+	width: 100%;
+	margin: 0 auto;
+	position:fixed;
+	bottom: 0;
+
+}
+
+.rookieAds {
+	width: 100%;
+	height: 100%;
+}
+
+
+/* Sports Detail Style */
+#detailsView {
+	background-color: #F5F4F4;
+}
+
+
+#subSection {
+	width: 100%;
+	height: 300px;
+	background-color: #777777;
+}
+
+#subSection > img {
+	width: 100%;
+	height: 300px;
+	-webkit-filter: blur(7px);
+	-moz-filter: blur(7px);
+	-o-filter: blur(7px);
+	-ms-filter: blur(7px);
+	filter: blur(7px);
+	opacity: 0.5;
+}
+
+#subSection > h1 {
+	position: relative;
+	top: -200px;
+	z-index: 2;
+	text-align: center;
+	font-size: 2em;
+	color: white;
+}
+
+#detailMenu {
+	width: 100%;
+}
+
+#detailMenu > div > div.col {
+	text-align: center;
+}
+
+#detailMenu > div > div.tabs{
+	top: 300px;
+}
+
+#detailMenu > div > div > a.tab-item {
+	text-decoration: none;
+}
+
+#mainSection {
+	width: 100%;
+	height: 100%;
+	margin-top: 49px;
+	padding-top: 20px;
+}
+
+#mainSection > h3 {
+
+	text-align: center;
+}
+
+#mainSection > div.card > div.item > table {
+	
+}
+
+#mainSection > div.card > div.item > table > tbody > tr > th {
+	text-align: center;
+	font-size: 0.8em;
+	vertical-align: middle;
+}
+
+#mainSection > div.card > div.item > table > tbody > tr > td {
+	text-align: center;
+	font-size: 0.9em;
+	vertical-align: middle;
+}
+
+.detailImg {
+	width: 100%;
+	height: 200px;
+}

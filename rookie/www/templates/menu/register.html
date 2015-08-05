@@ -9,6 +9,10 @@
         <form ng-submit="doRegister()">
             <div class="list">
               <label class="item item-input item-stacked-label">
+                <span class="input-label">이름</span>
+                <input type="text" placeholder="루키코리아" ng-model="registerData.userName">
+              </label>
+              <label class="item item-input item-stacked-label">
                 <span class="input-label">이메일</span>
                 <input type="email" placeholder="abc@rookiekorea.com" ng-model="registerData.userID">
               </label>

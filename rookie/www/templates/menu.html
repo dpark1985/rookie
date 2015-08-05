@@ -18,10 +18,27 @@
     <ion-side-menu side="left">
         <ion-content id="menuContent">
             <ion-list>
-                <div class="ads">
+                <div class="ads" ng-if="!isLogin">
 
                 </div>
-                <ion-item menu-close ng-click="login()">
+
+                <div class="loginHeader" ng-if="isLogin">
+                    <div>
+                        <div class="userIcon">
+                            <i class="ion-person"></i>
+                        </div>
+                        <div class="userSetting" menu-close ng-click="setting()">
+                            <i class="ion-android-more-vertical"></i>
+                        </div>
+                    </div>
+                    <div class="userInfo">
+                        <span>{{userName}}</span><br />
+                        <span class="userID">{{userID}}</span>
+                    </div>
+
+                </div>
+
+                <ion-item menu-close ng-click="login()" ng-if="!isLogin">
                   로그인
                 </ion-item>
                 <ion-item menu-close >
@@ -40,7 +57,7 @@
                   Aitch3 정보
                 </ion-item>
                 <div class="crSection">
-                  <span class="badge badge-positive">Version 1.0.0</span>
+                  <span class="badge badge-calm">Version 1.0.0</span>
                   <p class="crText">Copyright Aitch3 in Wonju, All Rights Reserved.<p>
                 </div>
             </ion-list>

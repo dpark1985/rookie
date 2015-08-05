@@ -1,9 +1,71 @@
 /* Menu Style */
 
 .ads {
-	height: 200px;
+	height: 180px;
 	width: 100%;
-	background-color: red;
+	background-image: url("../img/menu/header.png");
+}
+
+.loginHeader {
+	height: 180px;
+	width: 100%;
+	background-image: url("../img/menu/headerB.png");
+	padding-top: 20px;
+	padding-left: 20px;
+}
+
+.loginHeader > div > div {
+	float: left;
+	margin-bottom: 20px;
+}
+
+.loginHeader > div > .userIcon {
+    width: 80px;
+    height: 80px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    border-radius: 40px; 
+    background-color: #00C2F3;
+    text-align: center;
+}
+
+.loginHeader > div> .userIcon > i {
+	color: white;
+	font-size: 4em;
+	line-height: 80px;
+}
+
+.loginHeader > div > .userSetting {
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	position:fixed;
+	right: 0;
+}
+
+.loginHeader > div> .userSetting > i {
+	color: white;
+	font-size: 2.5em;
+	line-height: 40px;
+}
+
+
+.loginHeader > .userInfo {
+	clear: both;
+}
+
+.loginHeader > div > span{
+	color: white;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.loginHeader > div > span.userID {
+
+	color: white;
+	font-size: 1.2em;
+	font-weight: normal;
+
 }
 
 #menuContent > div > ion-list > div > ion-item.item {
@@ -24,26 +86,42 @@
 	font-size: 0.8em;
 }
 
-ion-content > div.scroll {
-	transform: ;
+/* Login Style */
+.loginLink {
+	margin-top: 20px;
+	text-align: center;
+}
+
+label.item.item-input.item-stacked-label {
+	background-color: #fff;
 }
 
 /* Main Style */
 
-.sportsList > div {
-	text-align: center;
+ion-content {
+	background-color: #F7F7F7;
 }
 
-.bringToTop {
-	top: 0;
+.list {
+	background-color: #F7F7F7;
+}
+
+.sportsList > div {
+
+	height: 172.5px;
+	margin-bottom: 40px;
+}
+
+.mainView {
+	width: 100%;
+	height: 150px;
 }
 
 .footerAds {
 	border-top: 0;
-	height: 150px;
 	width: 100%;
 	margin: 0 auto;
-	position:fixed;
+	position: fixed;
 	bottom: 0;
 
 }

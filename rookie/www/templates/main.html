@@ -1,31 +1,56 @@
 <ion-view>
 
+<ion-pane>
+	<fab-button style="{{vStyle}}" target-id="mainView">
+	</fab-button>
 
-	<ion-content has-bouncing="false">
 
+	<ion-content id="mainView" has-bouncing="false">
 		<div class="list list-inset">
-			<label class="item item-input">
-				<i class="icon ion-search placeholder-icon"></i>
-				<input type="text" placeholder="Search">
-			</label>
-		</div>
-		<div class="list list-inset">
+
+
+
 			<div class="row sportsList">
-				<div class="col"><a href="#/app/main/soccer">축구</a></div>
-				<div class="col"><a href="#/app/main/basketball">농구</a></div>
-				<div class="col"><a href="#/app/main/baseball">야구</a></div>
+				<div class="col">
+					<a href="#/app/main/bedminton"><img src="img/btn/bedminton.png"></a>
+				</div>
+					
+				<div class="col">
+					<a href="#/app/main/tennis"><img src="img/btn/tennis.png"></a>
+				</div>
 			</div>
 			<div class="row sportsList">
-				<div class="col"><a href="#/app/main/bowling">볼링</a></div>
-				<div class="col"><a href="#/app/main/bedminton">배드민턴</a></div>
-				<div class="col"><a href="#/app/main/tennis">테니스</a></div>
+				<div class="col">
+					<a href="#/app/main/soccer"><img src="img/btn/soccer.png"></a>
+				</div>
+
+				<div class="col">
+					<a href="#/app/main/baseball"><img src="img/btn/baseball.png"></a>
+				</div>
 			</div>
+			<div class="row sportsList">
+				<div class="col">
+					<a href="#/app/main/bowling"><img src="img/btn/bowling.png"></a>
+				</div>
+					
+				<div class="col">
+					<a href="#/app/main/basketball"><img src="img/btn/basketball.png"></a>
+				</div>
+			</div>
+
+			<div class="mainView">
+
+			</div>
+
 
 		</div>
 
 	</ion-content>
 
-	<ion-slide-box class="footerAds" does-continue="true" auto-play="true">
+
+<!--
+	<ion-slide-box class="footerAds" style="{{vStyle}}" does-continue="true" auto-play="true" show-pager="false">
+
 		<ion-slide>
 			<div><img class="rookieAds" src="img/footerAds/blue.png"></div>
 		</ion-slide>
@@ -36,4 +61,7 @@
 			<div><img class="rookieAds" src="img/footerAds/darkblue.png"></div>
 		</ion-slide>
 	</ion-slide-box>
+-->
+
+</ion-pane>
 </ion-view>

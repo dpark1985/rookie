@@ -25,6 +25,10 @@ angular.module('starter.controllers', [])
         $state.go('app.terms');
     };
 
+    $scope.setting = function() {
+        $state.go('app.setting');
+    };
+
 
 
 
@@ -33,7 +37,7 @@ angular.module('starter.controllers', [])
 })
 .controller('loginCtrl', function($scope, $rootScope, $state, $ionicModal, $timeout, $http) {
     $scope.loginData = {};
-    $scope.validCheck = 'positive';
+    $scope.validCheck = 'calm';
     
 
 
@@ -43,7 +47,6 @@ angular.module('starter.controllers', [])
         if(emailV.length == 1 || $scope.loginData.userPW == ''){
             $scope.validCheck = 'assertive';
         } else {
-            $scope.validCheck = 'positive';
             $http.post('http://52.69.2.200/happ/testing', {
                 status: 'login',
                 login: $scope.loginData.userID,
@@ -53,6 +56,10 @@ angular.module('starter.controllers', [])
                 if(data){
                     $state.go('app.main');
                     $rootScope.isLogin = true;
+                    $rootScope.userInfo = data;
+                    $rootScope.userID = $scope.loginData.userID;
+                    $rootScope.userName = $rootScope.userInfo.name;
+                    $scope.validCheck = 'calm';
                 } else {
                     $scope.validCheck = 'assertive';
                 }
@@ -120,12 +127,12 @@ angular.module('starter.controllers', [])
     });        
 
     $scope.registerData = {};
-    $scope.regiValidCheck = 'positive';
+    $scope.regiValidCheck = 'calm';
     $scope.doRegister = function() {
         //console.log('Doing register', $scope.registerData);
         var regiEmailV = $scope.registerData.userID.split('@');
         if(regiEmailV.length == 2 && $scope.registerData.userPW == $scope.registerData.userPWC){
-            $scope.regiValidCheck = 'positive';
+            $scope.regiValidCheck = 'calm';
 
 
             $http.post('http://52.69.2.200/happ/testingUserID', {
@@ -135,10 +142,11 @@ angular.module('starter.controllers', [])
                 if(data){
                     $scope.regiValidCheck = 'assertive';
                 } else {
-                    $scope.regiValidCheck = 'positive';
+                    $scope.regiValidCheck = 'calm';
 
                     $http.post('http://52.69.2.200/happ/testing', {
                         status: 'register',
+                        name: $scope.registerData.userName,
                         login: $scope.registerData.userID,
                         password: $scope.registerData.userPW
                     })
@@ -212,25 +220,42 @@ angular.module('starter.controllers', [])
 
 
 })
-.controller('MainCtrl', function($scope, $ionicSlideBoxDelegate, $timeout) {
+.controller('MainCtrl', function ($scope) {
 
 
 
+    var widthSize = $(window).width();
+    var heightSize = $(window).height();
+    //console.log(heightSize);
+    var vHight = widthSize * 375 / 1000;
 
+    $scope.sStyle = "width:"+widthSize+"px; height:"+heightSize+"px;";
 
-
+    $scope.vStyle = "height:"+vHight+"px;"
 
 })
-.controller('SportsCtrl', function($scope, $location, $http, $ionicTabsDelegate) {
+.controller('SportsCtrl', function ($scope, $location, $http, $ionicTabsDelegate, $ionicLoading) {
+    $scope.showLoading = function() {
+        $ionicLoading.show({
+            template: '로딩...'
+        });
+    };
+    $scope.hideLoading = function(){
+        $ionicLoading.hide();
+    };
+
     var locationArr = $location.url().split('/');
 
     //Selected Sports
     $scope.curSports = locationArr[3];
 
 
+    $scope.showLoading();
+
     $http.get('http://52.69.2.200/'+ $scope.curSports +'/competitions')
     .success(function(data, status, headers, config) {
         $scope.competitionItems = data;
+        $scope.hideLoading();
     })
     .error(function(data, status, headers, config) {
     // called asynchronously if an error occurs
@@ -240,10 +265,12 @@ angular.module('starter.controllers', [])
     $scope.competitions = function() {
         $ionicTabsDelegate.select(0);
 
+        $scope.showLoading();
 
         $http.get('http://52.69.2.200/'+ $scope.curSports +'/competitions')
         .success(function(data, status, headers, config) {
             $scope.competitionItems = data;
+            $scope.hideLoading();
         })
         .error(function(data, status, headers, config) {
         // called asynchronously if an error occurs
@@ -254,11 +281,14 @@ angular.module('starter.controllers', [])
     $scope.courts = function() {
         $ionicTabsDelegate.select(1);
 
+        $scope.showLoading();
+
 
         $scope.items = null;
         $http.get('http://52.69.2.200/'+ $scope.curSports +'/courts')
         .success(function(data, status, headers, config) {
             $scope.courtItems = data;
+            $scope.hideLoading();
         })
         .error(function(data, status, headers, config) {
         // called asynchronously if an error occurs
@@ -269,10 +299,13 @@ angular.module('starter.controllers', [])
     $scope.clubs = function() {
         $ionicTabsDelegate.select(2);
 
+        $scope.showLoading();
+
 
         $http.get('http://52.69.2.200/'+ $scope.curSports +'/clubs')
         .success(function(data, status, headers, config) {
             $scope.clubItems = data;
+            $scope.hideLoading();
         })
         .error(function(data, status, headers, config) {
         // called asynchronously if an error occurs
@@ -280,7 +313,18 @@ angular.module('starter.controllers', [])
         });
     }
 })
-.controller('DetailCtrl', function ($scope, $rootScope, $location, $http, $sce) {
+.controller('DetailCtrl', function ($scope, $rootScope, $location, $http, $sce, $ionicLoading) {
+    $scope.showLoading = function() {
+        $ionicLoading.show({
+            template: '로딩...'
+        });
+    };
+    $scope.hideLoading = function(){
+        $ionicLoading.hide();
+    };
+
+    $scope.showLoading();
+
 
     var locationArr = $location.url().split('/');
     $rootScope.curSport = locationArr[3]; //name of the sports
@@ -320,7 +364,8 @@ angular.module('starter.controllers', [])
             $scope.imageURL =  "http://52.69.2.200/uploads/"+$scope.item[0].courtImg;
             $scope.mainTitle = $scope.item[0].courtTitle; 
         }   
-        console.log(data);        
+        //console.log(data);        
+        $scope.hideLoading();
     })
     .error(function(data, status, headers, config) {
 

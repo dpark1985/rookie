@@ -5,9 +5,10 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', [
-    'ionic','ionic.service.core',
+    'ionic',
+    'ionic.service.core',
     'ngCordova',
-    
+    'ion-fab-button',
     'ionic.service.push',
     'starter.controllers',
     'starter.controllers'
@@ -52,6 +53,16 @@ angular.module('starter', [
         abstract: true,
         templateUrl: 'templates/menu.html',
         controller: 'MenuCtrl'
+    })
+
+    .state('app.setting', {
+        url: '/setting',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/menu/setting.html',
+                controller: 'loginCtrl'
+            }
+        }
     })
 
     .state('app.login', {

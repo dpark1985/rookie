@@ -35,30 +35,147 @@ angular.module('starter.controllers', [])
 
 
 })
+.controller('settingCtrl', function($state, $scope, $rootScope, $ionicModal, $ionicPlatform, $cordovaImagePicker, $cordovaFileTransfer, $http) {
+
+    $scope.gotoMain = function() {
+        $state.go('app.main');
+    };
+
+    $scope.logout = function(){
+        $rootScope.isLogin = false;
+        $rootScope.userInfo = '';
+        $scope.gotoMain();
+    };
+
+    $ionicModal.fromTemplateUrl('templates/userSetting/userInfo.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.userInfoModal = modal;
+    });
+    $scope.openUserInfoModal = function() {
+        $scope.userInfoModal.show();
+    };
+    $scope.closeUserInfoModal = function() {
+        $scope.userInfoModal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+        $scope.userInfoModal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('userInfoModal.hidden', function() {
+        // Execute action
+    });
+    
+    // Execute action on remove modal
+    $scope.$on('userInfoModal.removed', function() {
+        // Execute action
+    });
+
+    $scope.imgSetting = function(){
+
+
+
+        
+
+        $ionicPlatform.ready(function() {
+
+            var ipOptions = {
+                maximumImagesCount: 1
+            };
+
+            
+
+            //console.log('testing');
+
+            $cordovaImagePicker.getPictures(ipOptions)
+            .then(function (results) {
+                for (var i = 0; i < results.length; i++) {
+                    console.log('Image URI: ' + results[i]);
+                    $scope.filePath = results[i];
+
+                    
+                }
+
+                
+                var server = "http://52.69.2.200/happ/testingUserSetting/"+$rootScope.userInfo.login+"/img";
+                var filePath = $scope.filePath;
+                var ftOptions = {};
+                //console.log($rootScope.userInfo.login);
+
+                $cordovaFileTransfer.upload(server, filePath, ftOptions)
+                .then(function(result) {
+                    // Success!
+                    $http.post('http://52.69.2.200/happ/testing', {
+                        status: 'login',
+                        login: $rootScope.loginData.userID,
+                        password: $rootScope.loginData.userPW
+                    })
+                    .success(function(data, status, headers, config) {
+                        $rootScope.userInfo = data;
+                        $rootScope.imgExist = true;
+                        $scope.imageURL =  "http://52.69.2.200/uploads/"+data.img;
+                    })
+                    .error(function(data, status, headers, config) {
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                    });
+                }, function(err) {
+                    // Error
+                }, function (progress) {
+                    // constant progress updates
+                });
+
+
+            }, function(error) {
+                // error getting photos
+            });
+
+
+
+
+
+
+
+
+
+        });
+    }    
+
+
+
+
+})
 .controller('loginCtrl', function($scope, $rootScope, $state, $ionicModal, $timeout, $http) {
-    $scope.loginData = {};
+    $rootScope.loginData = {};
     $scope.validCheck = 'calm';
     
 
 
     $scope.doLogin = function() {
-        var emailV = $scope.loginData.userID.split('@');
-        //console.log('Doing login', $scope.loginData);
-        if(emailV.length == 1 || $scope.loginData.userPW == ''){
+        var emailV = $rootScope.loginData.userID.split('@');
+        //console.log('Doing login', $rootScope.loginData);
+        if(emailV.length == 1 || $rootScope.loginData.userPW == ''){
             $scope.validCheck = 'assertive';
         } else {
             $http.post('http://52.69.2.200/happ/testing', {
                 status: 'login',
-                login: $scope.loginData.userID,
-                password: $scope.loginData.userPW
+                login: $rootScope.loginData.userID,
+                password: $rootScope.loginData.userPW
             })
             .success(function(data, status, headers, config) {
                 if(data){
                     $state.go('app.main');
                     $rootScope.isLogin = true;
                     $rootScope.userInfo = data;
-                    $rootScope.userID = $scope.loginData.userID;
+                    $rootScope.userID = $rootScope.loginData.userID;
                     $rootScope.userName = $rootScope.userInfo.name;
+                    if($rootScope.userInfo.img == '' || $rootScope.userInfo.img == null){
+                        $rootScope.imgExist = false;
+                    } else {
+                        $rootScope.imgExist = true;
+                    }
                     $scope.validCheck = 'calm';
                 } else {
                     $scope.validCheck = 'assertive';

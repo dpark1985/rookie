@@ -60,7 +60,7 @@ angular.module('starter', [
         views: {
             'menuContent': {
                 templateUrl: 'templates/menu/setting.html',
-                controller: 'loginCtrl'
+                controller: 'settingCtrl'
             }
         }
     })

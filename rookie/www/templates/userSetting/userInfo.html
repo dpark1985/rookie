@@ -1,0 +1,25 @@
+
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">회원정보 설정</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="closeUserInfoModal()">닫기</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+
+      <div id="userImgSetting">
+        <div class="userIcon">
+            <i ng-if="!imgExist" class="ion-person"></i>
+            <img ng-if="imgExist" ng-src="http://52.69.2.200/uploads/{{userInfo.img}}">
+        </div>
+        <div class="badge badge-assertive" ng-click="imgSetting()">수정하기</div>
+      </div>
+
+
+    </ion-content>
+</ion-modal-view>
+
+
+
+

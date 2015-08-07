@@ -25,7 +25,8 @@
                 <div class="loginHeader" ng-if="isLogin">
                     <div>
                         <div class="userIcon">
-                            <i class="ion-person"></i>
+                            <i ng-if="!imgExist" class="ion-person"></i>
+                            <img ng-if="imgExist" ng-src="http://52.69.2.200/uploads/{{userInfo.img}}">
                         </div>
                         <div class="userSetting" menu-close ng-click="setting()">
                             <i class="ion-android-more-vertical"></i>

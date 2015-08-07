@@ -6,5 +6,8 @@
     "ngCordova": "~0.1.17-alpha",
     "ionic-service-core": "~0.1.9",
     "ionic-service-push": "~0.1.8"
+  },
+  "dependencies": {
+    "ngCordova": "~0.1.19-alpha"
   }
 }

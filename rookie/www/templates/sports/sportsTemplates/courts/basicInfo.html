@@ -5,20 +5,24 @@
 		<table class="table table-striped">
 			<tbody>
 				<tr>
-					<th>대회 장소</th>
-					<td>{{item[0].eventLocation}}</td>
+					<th>코트장 이름</th>
+					<td>{{item[0].courtTitle}}</td>
 				</tr>
 				<tr>
-					<th>경기 일시</th>
-					<td>{{item[0].eventDate.startC}}<br/>~<br/>{{item[0].eventDate.endC}}</td>
+					<th>주소</th>
+					<td>{{item[0].courtLocation.state}}, {{item[0].courtLocation.city}}</td>
 				</tr>
 				<tr>
-					<th>신청 기간</th>
-					<td>{{item[0].eventRegist.startC}}<br/>~<br/>{{item[0].eventRegist.endC}}</td>
+					<th>전화번호</th>
+					<td>{{item[0].courtPhone}}</td>
+				</tr>
+				<tr>
+					<th>이메일</th>
+					<td>{{item[0].courtEmail}}</td>
 				</tr>
 				<tr>
 					<th>홈페이지</th>
-					<td><a href="{{item[0].eventURL}}" target="_blank">{{item[0].eventURL}}</a></td>
+					<td><a href="{{item[0].courtURL}}" target="_blank">{{item[0].courtURL}}</a></td>
 				</tr>
 			</tbody>
 		</table>

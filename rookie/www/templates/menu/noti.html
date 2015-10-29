@@ -1,0 +1,16 @@
+<ion-view view-title="이벤트 및 공지사항">
+    <ion-content class="notification">
+        <div class="list list-inset">
+
+            <div class="item notiHeader">
+            이벤트 및 공지사항
+            </div>
+            <div ng-repeat="item in items">
+                <a class="item" ng-click="openModal(item._id)">
+                    {{item.notiSubject}}<span class="badge badge-assertive">{{item.notiType}}</span>
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+

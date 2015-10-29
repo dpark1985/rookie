@@ -1,67 +1,69 @@
 <ion-view>
-
-<ion-pane>
-	<fab-button style="{{vStyle}}" target-id="mainView">
-	</fab-button>
-
-
-	<ion-content id="mainView" has-bouncing="false">
-		<div class="list list-inset">
+    <ion-nav-title>
+		<img src="img/logo/topLogo.png">
+    </ion-nav-title>
+	<ion-pane>
 
 
 
-			<div class="row sportsList">
-				<div class="col">
-					<a href="#/app/main/bedminton"><img src="img/btn/bedminton.png"></a>
+		<ion-content id="mainView" has-bouncing="false">
+			<div class="list list-inset">
+
+				<div class="row notiHeader">
+					<ion-slide-box does-continue="true" auto-play="true" show-pager="false" on-slide-changed="slideHasChanged($index)">
+						<ion-slide ng-click="goToNoti()" ng-repeat="item in items">
+							<div class="box" >
+								<a class="item" href="#">
+									{{item.notiSubject}}
+									<span class="badge badge-assertive">{{item.notiType}}</span>
+								</a>
+							</div>
+						</ion-slide>
+					</ion-slide-box>
 				</div>
+
+
+				<div class="row sportsList">
+					<div class="col">
+						<a href="#/app/main/badminton"><img src="img/btn/bbedminton.png"></a>
+					</div>
+						
+					<div class="col">
+						<a href="#/app/main/tennis"><img src="img/btn/btennis.png"></a>
+					</div>
 					
-				<div class="col">
-					<a href="#/app/main/tennis"><img src="img/btn/tennis.png"></a>
 				</div>
-			</div>
-			<div class="row sportsList">
-				<div class="col">
-					<a href="#/app/main/soccer"><img src="img/btn/soccer.png"></a>
-				</div>
+				<div class="row sportsList">
 
-				<div class="col">
-					<a href="#/app/main/baseball"><img src="img/btn/baseball.png"></a>
-				</div>
-			</div>
-			<div class="row sportsList">
-				<div class="col">
-					<a href="#/app/main/bowling"><img src="img/btn/bowling.png"></a>
-				</div>
+					<div class="col">
+						<a href="#/app/main/baseball"><img src="img/btn/bbaseball.png"></a>
+					</div>
+
+					<div class="col">
+						<a href="#/app/main/soccer"><img src="img/btn/bsoccer.png"></a>
+					</div>
+
 					
-				<div class="col">
-					<a href="#/app/main/basketball"><img src="img/btn/basketball.png"></a>
 				</div>
+
+				<div class="row sportsList">
+					<div class="col">
+						<a href="#/app/main/bowling"><img src="img/btn/bbowling.png"></a>
+					</div>
+						
+					<div class="col">
+						<a href="#/app/main/basketball"><img src="img/btn/bbasketball.png"></a>
+					</div>
+				</div>
+
+
+
+
 			</div>
 
-			<div class="mainView">
+			<img src="img/footerAds/blue.png">
 
-			</div>
+		</ion-content>
 
-
-		</div>
-
-	</ion-content>
-
-
-<!--
-	<ion-slide-box class="footerAds" style="{{vStyle}}" does-continue="true" auto-play="true" show-pager="false">
-
-		<ion-slide>
-			<div><img class="rookieAds" src="img/footerAds/blue.png"></div>
-		</ion-slide>
-		<ion-slide>
-			<div><img class="rookieAds" src="img/footerAds/pink.png"></div>
-		</ion-slide>
-		<ion-slide>
-			<div><img class="rookieAds" src="img/footerAds/darkblue.png"></div>
-		</ion-slide>
-	</ion-slide-box>
--->
-
-</ion-pane>
+	</ion-pane>
 </ion-view>

@@ -8,7 +8,7 @@
                 </button>
             </ion-nav-buttons>
             <ion-nav-title>
-                <img src="img/logo/topLogo.svg">
+                <img src="img/logo/topLogo.png">
             </ion-nav-title>
         </ion-nav-bar>
         <ion-nav-view name="menuContent">
@@ -18,15 +18,13 @@
     <ion-side-menu side="left">
         <ion-content id="menuContent">
             <ion-list>
-                <div class="ads" ng-if="!isLogin">
-
-                </div>
+                <div class="ads" ng-if="!isLogin"></div>
 
                 <div class="loginHeader" ng-if="isLogin">
                     <div>
                         <div class="userIcon">
                             <i ng-if="!imgExist" class="ion-person"></i>
-                            <img ng-if="imgExist" ng-src="http://52.69.2.200/uploads/{{userInfo.img}}">
+                            <img ng-if="imgExist" ng-src="http://52.69.2.200/{{userInfo.img}}">
                         </div>
                         <div class="userSetting" menu-close ng-click="setting()">
                             <i class="ion-android-more-vertical"></i>
@@ -42,7 +40,7 @@
                 <ion-item menu-close ng-click="login()" ng-if="!isLogin">
                   로그인
                 </ion-item>
-                <ion-item menu-close >
+                <ion-item menu-close ng-click="noti()">
                   이벤트 및 공지사항
                 </ion-item>
                 <ion-item menu-close ng-click="adsQuery()">
@@ -51,10 +49,7 @@
                 <ion-item menu-close ng-click="terms()">
                   약관보기
                 </ion-item>
-                <ion-item menu-close >
-                  고객센터
-                </ion-item>
-                <ion-item menu-close >
+                <ion-item menu-close ng-click="company()">
                   Aitch3 정보
                 </ion-item>
                 <div class="crSection">

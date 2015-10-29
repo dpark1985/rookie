@@ -7,10 +7,8 @@
 angular.module('starter', [
     'ionic',
     'ionic.service.core',
-    'ngCordova',
-    'ion-fab-button',
     'ionic.service.push',
-    'starter.controllers',
+    'ngCordova',
     'starter.controllers'
 ])
 .config(['$ionicAppProvider', function($ionicAppProvider) {
@@ -85,11 +83,30 @@ angular.module('starter', [
         }
     })
 
+    .state('app.noti', {
+        url: '/noti',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/menu/noti.html',
+                controller: 'notiCtrl'
+            }
+        }
+    })
+
     .state('app.terms', {
         url: '/terms',
         views: {
             'menuContent': {
                 templateUrl: 'templates/menu/terms.html'
+            }
+        }
+    })
+
+    .state('app.company', {
+        url: '/company',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/menu/company.html'
             }
         }
     })
@@ -121,19 +138,6 @@ angular.module('starter', [
             'menuContent': {
                 templateUrl: 'templates/sports/details.html',
                 controller: 'DetailCtrl'
-            }
-        }
-    })
-
-
-
-
-    .state('app.single', {
-        url: '/playlists/:playlistId',
-        views: {
-            'detailContent': {
-                templateUrl: 'templates/playlist.html',
-                controller: 'PlaylistCtrl'
             }
         }
     });

@@ -1,9 +1,11 @@
 /* Menu Style */
 
 .ads {
+
 	height: 180px;
 	width: 100%;
 	background-image: url("../img/menu/header.png");
+	margin-top: -1px;
 }
 
 .loginHeader {
@@ -12,6 +14,7 @@
 	background-image: url("../img/menu/headerB.png");
 	padding-top: 20px;
 	padding-left: 20px;
+	margin-top: -1px;
 }
 
 .loginHeader > div > div {
@@ -108,6 +111,7 @@ label.item.item-input.item-stacked-label {
 #userImgSetting {
 	margin-top: 20px;
 	text-align: center;
+	margin-bottom: 40px;
 }
 
 
@@ -145,6 +149,10 @@ label.item.item-input.item-stacked-label {
 
 /* Main Style */
 
+.scroll-bar-indicator{
+	display: none;
+}
+
 ion-content {
 	background-color: #F7F7F7;
 }
@@ -153,31 +161,96 @@ ion-content {
 	background-color: #F7F7F7;
 }
 
-.sportsList > div {
-
-	height: 172.5px;
-	margin-bottom: 40px;
+#mainView > div.scroll {
+	height: 100%;
 }
 
-.mainView {
+#mainView > div > div.list.list-inset {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-top: 20px;
+}
+
+#mainView > div > div > div.row.notiHeader {
+	border-radius: 10px;
+	padding: 20px;
+	margin-bottom: 20px;
+	background-color: #00C2F3;
+	height: 60px;
 	width: 100%;
-	height: 150px;
 }
 
-.footerAds {
-	border-top: 0;
+#mainView > div > div > div.row.notiHeader > div.slider {
+	margin-top: -20px;
+	height: 60px;
 	width: 100%;
-	margin: 0 auto;
-	position: fixed;
-	bottom: 0;
-
 }
 
-.rookieAds {
+#mainView > div > div > div.row.notiHeader > div.slider > div.slider-slides {
+	width: 100%;
+}
+
+#mainView > div > div > div.row.notiHeader > div.slider > div.slider-slides > ion-slide.slider-slide {
+	width: 100%;
+}
+
+#mainView > div > div > div.row.notiHeader > div.slider > div.slider-slides > ion-slide.slider-slide > div.box {
+	height: 100%;
+	width: 100%;
+}
+
+#mainView > div > div > div.row.notiHeader > div.slider > div.slider-slides > ion-slide.slider-slide > div.box > a.item {
+	background-color: #00C2F3;
+	border-color: #00C2F3;
+	color: white;
+	width: 100%;
+	line-height: 40px;
+	top: -7px;
+}
+
+#mainView > div > div > div.row.notiHeader > div.slider > div.slider-slides > ion-slide.slider-slide > div.box > a.item > span {
+	margin-top: 9px;
+	float: right;
+}
+
+.sportsList > div.col {
+	height: 120px;
+	padding: 10px;
+	padding-left: 45px;
+	padding-right: 20px;
+}
+
+.sportsList > div.col:last-child {
+	height: 120px;
+	padding: 10px;
+	padding-left: 20px;
+	padding-right: 45px;
+}
+
+.sportsList > div.col > a {
 	width: 100%;
 	height: 100%;
 }
 
+.sportsList > div.col > a > img {
+	width: 100%;
+	height: 100%;
+}
+
+#mainView > div > img {
+	width: 100%;
+	bottom: 0;
+	position: fixed;
+}
+
+
+/* Noti Style */
+
+ion-content.notification > div > div > div.item.notiHeader {
+	background-color: #D2D2D2;
+	font-weight: bold;
+	text-align: center;
+}
 
 /* Sports Detail Style */
 #detailsView {
@@ -202,6 +275,15 @@ ion-content {
 	opacity: 0.5;
 }
 
+#subSection > a {
+	position: relative;
+	top: -300px;
+	z-index: 3;
+	display: inline-block;
+	float: right;
+	color: white;
+}
+
 #subSection > h1 {
 	position: relative;
 	top: -200px;
@@ -209,6 +291,7 @@ ion-content {
 	text-align: center;
 	font-size: 2em;
 	color: white;
+	clear: both;
 }
 
 #detailMenu {
@@ -235,8 +318,12 @@ ion-content {
 }
 
 #mainSection > h3 {
-
+	color: #444;
 	text-align: center;
+}
+
+#mainSection > div.card > div.ng-binding > p {
+	color: #444;
 }
 
 #mainSection > div.card > div.item > table {

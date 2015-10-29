@@ -1,0 +1,36 @@
+
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">비밀번호 변경</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="closePwChangeModal()">닫기</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+
+        <div class="list">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label {{curPW}}">현재 비밀번호</span>
+                <input type="password" placeholder="현재 비밀번호" ng-model="pwData.curPW">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label {{pwConfirm}}">새로운 비밀번호</span>
+                <input type="password" placeholder="새로운 비밀번호" ng-model="pwData.newPW">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label {{pwConfirm}}">새로운 비밀번호확인</span>
+                <input type="password" placeholder="새로운 비밀번호확인" ng-model="pwData.newPWC">
+            </label>
+
+            <button class="button button-full button-calm" ng-click="changePW()">
+                비밀번호 변경
+            </button>
+        </div>
+
+
+    </ion-content>
+</ion-modal-view>
+
+
+
+

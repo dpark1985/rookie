@@ -1,5 +1,7 @@
 <ion-view>
-
+    <ion-nav-title>
+		<img src="img/logo/topLogo.png">
+    </ion-nav-title>
 	<ion-pane>
 
 		<ion-tabs class="tabs-royal tabs-icon-left">
@@ -29,7 +31,7 @@
 						    <a class="item item-thumbnail-left" href="#/app/main/{{curSports}}/courts/{{item._id}}">
 								<img ng-src="http://52.69.2.200/uploads/{{item.courtImg}}">
 								<h2>{{item.courtTitle}}</h2>
-								<p>Nine Inch Nails</p>
+								<p>{{item.courtLocation.state}}, {{item.courtLocation.city}}</p>
 						    </a>
 						</ion-item>
 					</ion-list>

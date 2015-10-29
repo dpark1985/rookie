@@ -8,13 +8,44 @@
     </ion-header-bar>
     <ion-content>
 
-      <div id="userImgSetting">
-        <div class="userIcon">
-            <i ng-if="!imgExist" class="ion-person"></i>
-            <img ng-if="imgExist" ng-src="http://52.69.2.200/uploads/{{userInfo.img}}">
+        <div id="userImgSetting">
+            <div class="userIcon">
+                <i ng-if="!imgExist" class="ion-person"></i>
+                <img ng-if="imgExist" ng-src="http://52.69.2.200/uploads/{{userInfo.img}}">
+            </div>
+            <div class="badge badge-calm" ng-click="imgSetting()">
+                수정하기
+            </div>
         </div>
-        <div class="badge badge-assertive" ng-click="imgSetting()">수정하기</div>
-      </div>
+
+        <div class="list">
+
+            <div class="item item-icon-left">
+                <i class="icon ion-log-in"></i>
+                    가입일
+                <span class="item-note">
+                    {{userSince}}
+                </span>
+            </div>
+
+            <div class="item item-icon-left">
+                <i class="icon ion-pin"></i>
+                    총 방문수
+                <span class="item-note">
+                    {{userInfo.visits}}
+                </span>
+            </div>
+
+            <button class="button button-full button-calm" ng-click="openPwChangeModal()">
+                비밀번호 변경
+            </button>
+
+            <button class="button button-full button-assertive" ng-click="showWithdrawConfirm()">
+                회원탈퇴
+            </button>
+
+
+        </div>      
 
 
     </ion-content>

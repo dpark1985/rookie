@@ -1,20 +1,23 @@
 angular.module('starter.controllers', [])
 
-.controller('MenuCtrl', function($state, $scope, $rootScope, $location) {
+.controller('MenuCtrl', function ($state, $scope) {
 
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
     // To listen for when this page is active (for example, to refresh data),
     // listen for the $ionicView.enter event:
     //$scope.$on('$ionicView.enter', function(e) {
+    //    console.log(e);
     //});
-
-    console.log($location.url());
 
     
 
     $scope.login = function() {
         $state.go('app.login');
+    };
+
+    $scope.noti = function() {
+        $state.go('app.noti');
     };
 
     $scope.adsQuery = function() {
@@ -29,13 +32,26 @@ angular.module('starter.controllers', [])
         $state.go('app.setting');
     };
 
-
-
+    $scope.company = function() {
+        $state.go('app.company');
+    };
 
 
 
 })
-.controller('settingCtrl', function($state, $scope, $rootScope, $ionicModal, $ionicPlatform, $cordovaImagePicker, $cordovaFileTransfer, $http) {
+.controller('settingCtrl', function(
+    $state, 
+    $scope, 
+    $http, 
+    $state,
+    $rootScope, 
+    $ionicModal,
+    $ionicPopup, 
+    $ionicPlatform, 
+    $cordovaImagePicker, 
+    $cordovaFileTransfer
+    ) 
+{
 
     $scope.gotoMain = function() {
         $state.go('app.main');
@@ -55,6 +71,10 @@ angular.module('starter.controllers', [])
     });
     $scope.openUserInfoModal = function() {
         $scope.userInfoModal.show();
+        $scope.userSince = $rootScope.userInfo.since.split(' ')[0] + 
+        ' ' + $rootScope.userInfo.since.split(' ')[1] + 
+        ' ' + $rootScope.userInfo.since.split(' ')[2] + 
+        ' ' + $rootScope.userInfo.since.split(' ')[3] + ' ';
     };
     $scope.closeUserInfoModal = function() {
         $scope.userInfoModal.hide();
@@ -63,91 +83,150 @@ angular.module('starter.controllers', [])
     $scope.$on('$destroy', function() {
         $scope.userInfoModal.remove();
     });
-    // Execute action on hide modal
-    $scope.$on('userInfoModal.hidden', function() {
-        // Execute action
+
+    $ionicModal.fromTemplateUrl('templates/userSetting/pwChange.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.pwChangeModal = modal;
     });
-    
-    // Execute action on remove modal
-    $scope.$on('userInfoModal.removed', function() {
-        // Execute action
+    $scope.openPwChangeModal = function() {
+        $scope.pwChangeModal.show();
+    };
+    $scope.closePwChangeModal = function() {
+        $scope.pwChangeModal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+        $scope.pwChangeModal.remove();
     });
+
 
     $scope.imgSetting = function(){
-
-
-
-        
-
         $ionicPlatform.ready(function() {
 
             var ipOptions = {
                 maximumImagesCount: 1
             };
 
-            
-
-            //console.log('testing');
-
             $cordovaImagePicker.getPictures(ipOptions)
             .then(function (results) {
-                for (var i = 0; i < results.length; i++) {
-                    console.log('Image URI: ' + results[i]);
-                    $scope.filePath = results[i];
+                console.log(results[0]);
+                if(results){
 
-                    
-                }
+                    for (var i = 0; i < results.length; i++) {
+                        //console.log('Image URI: ' + results[i]);
+                        $scope.filePath = results[i];                    
+                    }
 
-                
-                var server = "http://52.69.2.200/happ/testingUserSetting/"+$rootScope.userInfo.login+"/img";
-                var filePath = $scope.filePath;
-                var ftOptions = {};
-                //console.log($rootScope.userInfo.login);
+                    var server = "http://52.69.2.200/happ/testingUserSetting/"+$rootScope.userInfo.login+"/img";
+                    var filePath = $scope.filePath;
+                    var ftOptions = {};
 
-                $cordovaFileTransfer.upload(server, filePath, ftOptions)
-                .then(function(result) {
-                    // Success!
-                    $http.post('http://52.69.2.200/happ/testing', {
-                        status: 'login',
-                        login: $rootScope.loginData.userID,
-                        password: $rootScope.loginData.userPW
-                    })
-                    .success(function(data, status, headers, config) {
-                        $rootScope.userInfo = data;
-                        $rootScope.imgExist = true;
-                        $scope.imageURL =  "http://52.69.2.200/uploads/"+data.img;
-                    })
-                    .error(function(data, status, headers, config) {
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
+                    $cordovaFileTransfer.upload(server, filePath, ftOptions)
+                    .then(function(result) {
+                        // Success!
+                        $http.post('http://52.69.2.200/happ/testing', {
+                            status: 'login',
+                            login: $rootScope.loginData.userID,
+                            password: $rootScope.loginData.userPW
+                        })
+                        .success(function(data, status, headers, config) {
+                            $rootScope.userInfo = data;
+                            $rootScope.imgExist = true;
+                            $scope.imageURL =  "http://52.69.2.200/"+data.img;
+                        })
+                        .error(function(data, status, headers, config) {
+                            // called asynchronously if an error occurs
+                            // or server returns response with an error status.
+                        });
+                    }, function(err) {
+                        // Error
+                    }, function (progress) {
+                        // constant progress updates
                     });
-                }, function(err) {
-                    // Error
-                }, function (progress) {
-                    // constant progress updates
-                });
+
+
+
+                } else {
+
+                }
 
 
             }, function(error) {
                 // error getting photos
             });
-
-
-
-
-
-
-
-
-
         });
-    }    
+    };
+
+    $scope.showWithdrawConfirm = function() {
+        var confirmPopup = $ionicPopup.confirm({
+            title: '회원탈퇴',
+            template: '회원탈퇴를 하시면 모든 기록이 삭제됩니다.<br /> 진행할까요?',
+            cancelText: '취소', // String (default: 'Cancel'). The text of the Cancel button.
+            okText: '탈퇴', // String (default: 'OK'). The text of the OK button.
+            okType: 'button-assertive', // String (default: 'button-positive'). The type of the OK button.
+        });
+        confirmPopup.then(function(res) {
+            if(res) {
+                $http.post('http://52.69.2.200/happ/testing', {
+                    status: 'withdraw',
+                    login: $rootScope.userInfo.login
+                })
+                .success(function(data, status, headers, config) {
+                    //console.log(data);
+                    $rootScope.isLogin = false;
+                    $scope.userInfoModal.hide();
+                    $state.go('app.main');
+                })
+                .error(function(data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                }); 
+            } else {
+                //console.log('You are not sure');
+            }
+        });
+    };
+
+    $scope.pwData = {};
+    $scope.pwConfirm = "";
+    $scope.curPW = "";
+    $scope.changePW = function(){
+        if($scope.pwData.newPW != $scope.pwData.newPWC){
+            $scope.pwConfirm = "assertive";
+        } else {
+            $scope.pwConfirm = "";
+            $http.post("http://52.69.2.200/happ/testingUserSetting/"+$rootScope.userInfo.login+"/pwchange", {
+                login: $rootScope.userInfo.login,
+                curPW: $scope.pwData.curPW,
+                newPW: $scope.pwData.newPW
+            })
+            .success(function(data, status, headers, config) {
+                if(data.n == '0'){
+                    $scope.curPW = "assertive";
+                } else {
+                    $scope.closePwChangeModal();
+                    $scope.curPW = "";
+                }
+            })
+            .error(function(data, status, headers, config) {
+                
+            }); 
+        }
+    };
+
+
+
+
 
 
 
 
 })
-.controller('loginCtrl', function($scope, $rootScope, $state, $ionicModal, $timeout, $http) {
+
+
+.controller('loginCtrl', function ($scope, $rootScope, $state, $ionicModal, $timeout, $http) {
     $rootScope.loginData = {};
     $scope.validCheck = 'calm';
     
@@ -169,14 +248,18 @@ angular.module('starter.controllers', [])
                     $state.go('app.main');
                     $rootScope.isLogin = true;
                     $rootScope.userInfo = data;
-                    $rootScope.userID = $rootScope.loginData.userID;
+                    $rootScope.userID = $rootScope.userInfo.login;
                     $rootScope.userName = $rootScope.userInfo.name;
                     if($rootScope.userInfo.img == '' || $rootScope.userInfo.img == null){
                         $rootScope.imgExist = false;
                     } else {
                         $rootScope.imgExist = true;
+                        $rootScope.userInfo.img = $rootScope.userInfo.img.replace("public/", "");
                     }
                     $scope.validCheck = 'calm';
+
+                    //console.log($rootScope.userInfo);
+
                 } else {
                     $scope.validCheck = 'assertive';
                 }
@@ -214,8 +297,19 @@ angular.module('starter.controllers', [])
     });
 
     $scope.reRegisterData = {};
+
     $scope.doReRegister = function() {
-        console.log('Doing reRegister', $scope.reRegisterData);
+        $http.post('http://52.69.2.200/happ/testing', {
+            status: 'pwreset',
+            login: $scope.reRegisterData.userID
+        })
+        .success(function(data, status, headers, config) {
+            $scope.closeReRegister();
+        })
+        .error(function(data, status, headers, config) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
 
     };
 
@@ -227,8 +321,8 @@ angular.module('starter.controllers', [])
     $ionicModal.fromTemplateUrl('templates/menu/register.html', {
         scope: $scope,
         animation: 'slide-in-up'
-        }).then(function(modal) {
-            $scope.modalRegister = modal;
+    }).then(function(modal) {
+        $scope.modalRegister = modal;
     });
 
     $scope.register = function() {
@@ -269,8 +363,32 @@ angular.module('starter.controllers', [])
                     })
                     .success(function(data, status, headers, config) {
                         if(data){
+             
+
+                            $http.post('http://52.69.2.200/happ/testing', {
+                                status: 'login',
+                                login: $scope.registerData.userID,
+                                password: $scope.registerData.userPW
+                            })
+                            .success(function(data, status, headers, config) {
+                  
+                                
+                                $rootScope.isLogin = true;
+                                $rootScope.userInfo = data;
+                                $rootScope.userID = $rootScope.userInfo.login;
+                                $rootScope.userName = $rootScope.userInfo.name;
+                                if($rootScope.userInfo.img == '' || $rootScope.userInfo.img == null){
+                                    $rootScope.imgExist = false;
+                                } else {
+                                    $rootScope.imgExist = true;
+                                }
+                            })
+                            .error(function(data, status, headers, config) {
+                                // called asynchronously if an error occurs
+                                // or server returns response with an error status.
+                            });
+
                             $state.go('app.main');
-                            $rootScope.isLogin = true;
                             $timeout(function() {
                                 $scope.closeRegister();
                             }, 1000);
@@ -312,10 +430,10 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('adsQueryCtrl', function($scope, $http, $timeout) {
+.controller('adsQueryCtrl', function ($scope, $http, $timeout) {
     $scope.adsQueryData = {};
     $scope.doAdsQuery = function() {
-        console.log('Doing adsQuery', $scope.adsQueryData);
+        //console.log('Doing adsQuery', $scope.adsQueryData);
 
         $http.post('http://52.69.2.200/query', {
             login: $scope.adsQueryData.userEmail,
@@ -332,26 +450,106 @@ angular.module('starter.controllers', [])
 
         });        
     };
+})
+
+.controller('notiCtrl', function ($scope, $http, $timeout, $ionicModal) {
+    $http.get('http://52.69.2.200/noti/all')
+    .success(function(data, status, headers, config) {
+        $scope.items = data;
+    })
+    .error(function(data, status, headers, config) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+    });
+
+    $ionicModal.fromTemplateUrl('templates/menu/notiDetail.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.openModal = function(id) {
+        $scope.modal.show();
+        console.log(id);
+
+        $http.get('http://52.69.2.200/noti/'+id)
+        .success(function(data, status, headers, config) {
+            $scope.data = data;
+        })
+        .error(function(data, status, headers, config) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+        });
 
 
+    };
+
+    $scope.closeModal = function() {
+        $scope.modal.hide();
+    };
+
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+        $scope.modal.remove();
+    });
+
+    // Execute action on hide modal
+        $scope.$on('modal.hidden', function() {
+        // Execute action
+    });
+
+    // Execute action on remove modal
+        $scope.$on('modal.removed', function() {
+        // Execute action
+    });
 
 
 })
-.controller('MainCtrl', function ($scope) {
 
-
-
-    var widthSize = $(window).width();
-    var heightSize = $(window).height();
-    //console.log(heightSize);
-    var vHight = widthSize * 375 / 1000;
-
-    $scope.sStyle = "width:"+widthSize+"px; height:"+heightSize+"px;";
-
-    $scope.vStyle = "height:"+vHight+"px;"
+.controller('companyCtrl', function ($scope) {
 
 })
-.controller('SportsCtrl', function ($scope, $location, $http, $ionicTabsDelegate, $ionicLoading) {
+
+.controller('MainCtrl', function ($scope, $state, $http, $ionicLoading, $ionicSlideBoxDelegate, $timeout) {
+
+/*
+    $scope.showLoading = function() {
+        $ionicLoading.show({
+            template: '로딩...'
+        });
+    };
+*/
+
+    $scope.hideLoading = function(){
+        $ionicLoading.hide();
+    };
+
+    $scope.goToNoti = function() {
+        $state.go('app.noti');
+    }
+
+/*
+    $scope.showLoading();
+
+    $scope.items = null;
+    $http.get('http://52.69.2.200/noti/active')
+    .success(function(data, status, headers, config) {
+        $timeout(function(){
+            $scope.items = data;
+            $ionicSlideBoxDelegate.update();
+            $scope.hideLoading();
+        }, 1000);
+    })
+    .error(function(data, status, headers, config) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+    });
+*/
+
+})
+
+.controller('SportsCtrl', function ($scope, $rootScope, $location, $http, $ionicTabsDelegate, $ionicLoading) {
     $scope.showLoading = function() {
         $ionicLoading.show({
             template: '로딩...'
@@ -364,12 +562,17 @@ angular.module('starter.controllers', [])
     var locationArr = $location.url().split('/');
 
     //Selected Sports
-    $scope.curSports = locationArr[3];
+    $rootScope.curSports = locationArr[3];
 
 
     $scope.showLoading();
 
-    $http.get('http://52.69.2.200/'+ $scope.curSports +'/competitions')
+    //$scope.platform = ionic.Platform;
+    //console.log($scope.platform);
+    //onsole.log($scope.platform.isAndroid());
+
+
+    $http.get('http://52.69.2.200/happ/model/'+ $rootScope.curSports +'/competitions')
     .success(function(data, status, headers, config) {
         $scope.competitionItems = data;
         $scope.hideLoading();
@@ -384,7 +587,7 @@ angular.module('starter.controllers', [])
 
         $scope.showLoading();
 
-        $http.get('http://52.69.2.200/'+ $scope.curSports +'/competitions')
+        $http.get('http://52.69.2.200/happ/model/'+ $rootScope.curSports +'/competitions')
         .success(function(data, status, headers, config) {
             $scope.competitionItems = data;
             $scope.hideLoading();
@@ -402,10 +605,16 @@ angular.module('starter.controllers', [])
 
 
         $scope.items = null;
-        $http.get('http://52.69.2.200/'+ $scope.curSports +'/courts')
+        $http.get('http://52.69.2.200/happ/model/'+ $rootScope.curSports +'/courts')
         .success(function(data, status, headers, config) {
             $scope.courtItems = data;
+            for (x in $scope.courtItems){
+                $scope.courtItems[x].courtImg = $scope.courtItems[x].courtImg.replace('public/uploads', '');
+            }
+
+
             $scope.hideLoading();
+
         })
         .error(function(data, status, headers, config) {
         // called asynchronously if an error occurs
@@ -419,7 +628,7 @@ angular.module('starter.controllers', [])
         $scope.showLoading();
 
 
-        $http.get('http://52.69.2.200/'+ $scope.curSports +'/clubs')
+        $http.get('http://52.69.2.200/happ/model/'+ $rootScope.curSports +'/clubs')
         .success(function(data, status, headers, config) {
             $scope.clubItems = data;
             $scope.hideLoading();
@@ -430,7 +639,7 @@ angular.module('starter.controllers', [])
         });
     }
 })
-.controller('DetailCtrl', function ($scope, $rootScope, $location, $http, $sce, $ionicLoading) {
+.controller('DetailCtrl', function ($scope, $rootScope, $location, $http, $sce, $ionicLoading, $ionicPopup) {
     $scope.showLoading = function() {
         $ionicLoading.show({
             template: '로딩...'
@@ -448,7 +657,7 @@ angular.module('starter.controllers', [])
     $rootScope.curCategory = locationArr[4]; //competitions | courts | clubs
     $rootScope.curId = locationArr[5]; //ID of the item
 
-    console.log($rootScope.curCategory);
+    //console.log($rootScope.curCategory);
 
 
     $scope.contentActive = '';
@@ -464,21 +673,22 @@ angular.module('starter.controllers', [])
     $scope.activeInclude = $scope.templates.basicInfo;
 
 
-    $http.get('http://52.69.2.200/happ/testingDetails/'+$rootScope.curCategory+'/'+$rootScope.curId)
+    $http.get('http://52.69.2.200/happ/model/'+$rootScope.curSports+'/'+$rootScope.curCategory+'/'+$rootScope.curId)
     .success(function(data, status, headers, config) {
         $scope.item = data;
+        console.log($scope.item);
 
         if($rootScope.curCategory == 'competitions'){
             $scope.item[0].eventInfo = $sce.trustAsHtml($scope.item[0].eventInfo);
-            $scope.imageURL =  "http://52.69.2.200/uploads/"+$scope.item[0].eventImg;
+            $scope.imageURL =  $scope.item[0].eventImg.replace('public/', '');
             $scope.mainTitle = $scope.item[0].eventTitle;
         } else if ($rootScope.curCategory == 'clubs'){
             $scope.item[0].clubInfo = $sce.trustAsHtml($scope.item[0].clubInfo);
-            $scope.imageURL =  "http://52.69.2.200/uploads/"+$scope.item[0].clubImg; 
+            $scope.imageURL =  $scope.item[0].clubImg.replace('public/uploads', ''); 
             $scope.mainTitle = $scope.item[0].clubTitle;
         } else {
             $scope.item[0].courtInfo = $sce.trustAsHtml($scope.item[0].courtInfo);
-            $scope.imageURL =  "http://52.69.2.200/uploads/"+$scope.item[0].courtImg;
+            $scope.imageURL =  'http://52.69.2.200/uploads/'+$scope.item[0].courtImg.replace('public/uploads', '');;
             $scope.mainTitle = $scope.item[0].courtTitle; 
         }   
         //console.log(data);        
@@ -508,7 +718,52 @@ angular.module('starter.controllers', [])
         $scope.basicInfoActive = '';
         $scope.imageActive = 'active';
         $scope.activeInclude = $scope.templates.images;
-    }
+    };
+
+    $scope.report = function() {
+        $scope.data = {}
+
+        $scope.reportList = [
+            {text: "부적절한 이미지 사용", checked: false},
+            {text: "내용 불충분", checked: false},
+            {text: "정보 불량", checked: false}
+        ];
+
+        // An elaborate, custom popup
+        var reportPopup = $ionicPopup.show({
+            template: '<ion-checkbox ng-repeat="item in reportList" ng-model="item.checked" ng-checked="item.checked">{{ item.text }}</ion-checkbox>',
+            title: '수정 요청',
+            subTitle: '해당 데이터의 수정을 요청할 수 있습니다.',
+            scope: $scope,
+            buttons: [
+                {   text: '취소',
+                    onTap: function(e){
+                        reportPopup.close();
+                    }
+                },
+                {
+                    text: '<b>리포트</b>',
+                    type: 'button-positive',
+                    onTap: function(e) {
+                        console.log($scope.reportList);
+
+                        $http.post('http://52.69.2.200/happ/testingDetails/'+$rootScope.curCategory+'/'+$rootScope.curId, {
+                            reports: $scope.reportList
+                        })
+                        .success(function(data, status, headers, config) {
+
+                        })
+                        .error(function(data, status, headers, config) {
+                            
+                        }); 
+
+                        reportPopup.close();
+                    }
+                }
+            ]   
+        });
+
+    };
 
 
 });
